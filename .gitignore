@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+*/__vm
+*/.vs
+*/Release
