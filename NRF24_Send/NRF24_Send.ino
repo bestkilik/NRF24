@@ -10,18 +10,19 @@ int count = 0;
 
 void setup() {
 	Serial.begin(9600);
-	radio.begin();					//ªì©l¤Æ nRF24L01ºN²Õ
-	radio.openWritingPipe(address);	//¶}©l¼g¤JºŞ½u
-	radio.setPALevel(RF24_PA_MIN);	//³]¬°§C¥\²v
-	radio.stopListening();			//¶Ç°eºİ¤£»İ±µ¦¬
+	radio.begin();					//åˆå§‹åŒ– nRF24L01æ‘¸çµ„
+	radio.openWritingPipe(address);	//é–‹å§‹å¯«å…¥ç®¡ç·š
+	radio.setPALevel(RF24_PA_MAX);	//è¨­ç‚ºä½åŠŸç‡
+	radio.stopListening();			//å‚³é€ç«¯ä¸éœ€æ¥æ”¶
+//  radio.printDetails();
 }
 
 void loop() {
 	char text[32];
 	sprintf(text, "Hello World %d", count);
-	Serial.println(text);
+//	Serial.println(text);
 
 	radio.write(&text, sizeof(text));
 	count++;
-	delay(1000);
+	delay(2000);
 }

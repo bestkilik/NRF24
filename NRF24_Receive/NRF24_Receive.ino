@@ -20,6 +20,8 @@ void setup() {
 	Serial.println("NRF2401 receiver");
 	Serial.println("waiting...");
 	appTime = millis();
+
+  pinMode(LED_BUILTIN, OUTPUT);
 }
 
 void loop() {
@@ -28,13 +30,13 @@ void loop() {
 
 	timer += dt;
 
-	//if (timer > 1000.0) {
-	//	timer = 0;
-	//	Serial.println("1 sec. is passed!");
-	//}
+	
 	if (radio.available()) {
 		char text[32] = "";
 		radio.read(&text, sizeof(text));
-		Serial.println(text);
+    digitalWrite(LED_BUILTIN, HIGH);
+//		Serial.println(text);
 	}
+  delay(500);
+  digitalWrite(LED_BUILTIN, LOW);
 }
