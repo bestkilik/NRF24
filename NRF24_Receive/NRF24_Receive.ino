@@ -5,7 +5,7 @@
 
 unsigned long appTime;
 unsigned long timer = 0;
-RF24 radio(7,8);
+RF24 radio(7, 8);
 const byte address[6] = "00101";
 
 void setup() {
@@ -21,22 +21,27 @@ void setup() {
 	Serial.println("waiting...");
 	appTime = millis();
 
-  pinMode(LED_BUILTIN, OUTPUT);
+	pinMode(LED_BUILTIN, OUTPUT);
 }
 
 void loop() {
 	unsigned long dt = millis() - appTime;
 	appTime = millis();
+	if (timer > 0){
+		timer -= dt;
+	}
+  
+	if (timer <= 0) {
+		timer = 0;
+	}
 
-	timer += dt;
-
-	
-	if (radio.available()) {
+	uint8_t pipe;
+	if (radio.available(&pipe)) {
 		char text[32] = "";
 		radio.read(&text, sizeof(text));
-    digitalWrite(LED_BUILTIN, HIGH);
-//		Serial.println(text);
+		timer = 1.0;
+		Serial.println(text);
+		Serial.print(F(" bytes on pipe "));
+		Serial.print(pipe);
 	}
-  delay(500);
-  digitalWrite(LED_BUILTIN, LOW);
 }
