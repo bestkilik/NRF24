@@ -14,7 +14,7 @@ void setup() {
 	radio.openWritingPipe(address); //開始寫入管線
 	radio.setPALevel(RF24_PA_MAX);  //設為低功率
 	radio.stopListening();          //傳送端不需接收
-	// radio.printDetails();
+	radio.printDetails();
 }
 
 void loop() {
